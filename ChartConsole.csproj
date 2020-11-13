@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net5</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Drawing.Common" Version="4.5.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DevExpress\dxvcs\Win\DevExpress.Data\DevExpress.Data\DevExpress.Data.NetCore.csproj" />
+    <ProjectReference Include="..\..\DevExpress\dxvcs\Win\DevExpress.XtraPrinting\DevExpress.Printing.Core\DevExpress.Printing.Core.NetCore.csproj" />
+    <ProjectReference Include="..\..\DevExpress\dxvcs\Win\DevExpress.XtraCharts\DevExpress.Charts.Core\DevExpress.Charts.Core.NetCore.csproj" />
+    <ProjectReference Include="..\..\DevExpress\dxvcs\Win\DevExpress.XtraCharts\DevExpress.XtraCharts\DevExpress.XtraCharts.NetCore.csproj" />
+  </ItemGroup>
+</Project>
