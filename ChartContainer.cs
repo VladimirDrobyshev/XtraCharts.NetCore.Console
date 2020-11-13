@@ -37,7 +37,7 @@ namespace ChartConsole {
         }
 
         Chart IChartContainer.Chart { get { return chart; } }
-        ChartContainerType IChartContainer.ControlType { get { return ChartContainerType.WinControl; } }
+        ChartContainerType IChartContainer.ControlType { get { return ChartContainerType.WebControl; } }
         IChartDataProvider IChartContainer.DataProvider { get { return this; } }
         IChartRenderProvider IChartContainer.RenderProvider { get { return this; } }
         IChartEventsProvider IChartContainer.EventsProvider { get { return this; } }
