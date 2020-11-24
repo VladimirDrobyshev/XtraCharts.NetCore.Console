@@ -6,10 +6,11 @@ using DevExpress.Data.Browsing;
 using DevExpress.Utils.Filtering.Internal;
 using DevExpress.XtraCharts;
 using DevExpress.XtraCharts.Native;
+using DevExpress.XtraCharts.Printing;
 using DevExpress.XtraPrinting;
 
 namespace ChartConsole {
-    public class ChartContainer : IChartContainer, IChartRenderProvider, IChartDataProvider, IChartEventsProvider, IDisposable {
+    public class ChartContainer : IChartContainer, IChartRenderProvider, IChartDataProvider, IChartEventsProvider, IBasePrintable, IDisposable {
         Chart chart;
         IServiceProvider serviceProvider = null;
 
@@ -18,6 +19,8 @@ namespace ChartConsole {
 
         public ChartContainer() {
             chart = new Chart(this);
+            chart.Printer = new ChartPrinter(this);
+            //chart.Printer.ImageFormat = PrintImageFormat.Metafile;
         }
         #region IDisposable
         void IDisposable.Dispose() {
@@ -97,7 +100,7 @@ namespace ChartConsole {
         Rectangle IChartRenderProvider.DisplayBounds { get { return new Rectangle(Point.Empty, Size); } }
         bool IChartRenderProvider.IsPrintingAvailable { get { return true; } }
         object IChartRenderProvider.LookAndFeel { get { return null; } }
-        IBasePrintable IChartRenderProvider.Printable { get { return null; } }
+        IBasePrintable IChartRenderProvider.Printable { get { return this; } }
 
         ComponentExporter IChartRenderProvider.CreateComponentPrinter(IBasePrintable iPrintable) {
             return new ComponentExporter(iPrintable);
@@ -108,6 +111,19 @@ namespace ChartConsole {
         }
         Bitmap IChartRenderProvider.LoadBitmap(string url) {
             return null;
+        }
+        #endregion
+
+        #region IBasePrintable 
+        bool IBasePrintable.CreatesIntersectedBricks { get { return true; } }
+        void IBasePrintable.Initialize(IPrintingSystem ps, ILink link) {
+            ((IBasePrintable)chart).Initialize(ps, link);
+        }
+        void IBasePrintable.Finalize(IPrintingSystem ps, ILink link) {
+            ((IBasePrintable)chart).Finalize(ps, link);
+        }
+        void IBasePrintable.CreateArea(string areaName, IBrickGraphics graph) {
+            ((IBasePrintable)chart).CreateArea(areaName, graph);
         }
         #endregion
 
